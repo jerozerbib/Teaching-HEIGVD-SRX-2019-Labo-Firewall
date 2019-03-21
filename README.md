@@ -125,7 +125,7 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 
 | Adresse IP source | Adresse IP destination | Type | Port src | Port dst | Action |
 | :---:             | :---:                  | :---:| :------: | :------: | :----: |
-|                   |                        |      |          |          |        |
+| *                 | *                      |  any | *        | *        | DROP   |
 |                   |                        |      |          |          |        |
 |                   |                        |      |          |          |        |
 |                   |                        |      |          |          |        |
