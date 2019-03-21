@@ -123,17 +123,18 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 
 **LIVRABLE : Remplir le tableau**
 
-| Adresse IP source | Adresse IP destination | Type | Port src | Port dst | Action |
-| :---:             | :---:                  | :---:| :------: | :------: | :----: |
-| *                 | *                      |  any | *        | *        | DROP   |
+| Adresse IP source | Adresse IP destination | Type | Port src | Port dst     | Action |
+| :---:             | :---:                  | :---:| :------: | :------:     | :----: |
+| *                 | *                      |  any | *        | *            | DROP   |
 | 192.168.100.0/24  | 172.17.0.2             |  TCP | *        | 53       | ACCEPT |
 | 192.168.100.0/24  | 172.17.0.2             |  UDP | *        | 53       | ACCEPT |
-| 172.17.0.2        | 192.168.100.0/24       |  TCP | *        | 53       | ACCEPT |
-| 172.17.0.2        | 192.168.100.0/24       |  UDP | *        | 53       | ACCEPT |
-| 192.168.100.0/24  | 172.17.0.2             |  ICMP|          |          | ACCEPT |
-| 192.168.100.0/24  | 192.168.200.0/24       |  ICMP|          |          | ACCEPT |
-| 192.168.200.0/24  | 192.168.100.0/24       |  ICMP|          |          | ACCEPT |
-|                   |                        |      |          |          |        |
+| 172.17.0.2        | 192.168.100.0/24       |  TCP | *        | 53          | ACCEPT |
+| 172.17.0.2        | 192.168.100.0/24       |  UDP | *        | 53          | ACCEPT |
+| 192.168.100.0/24  | 172.17.0.2             |  ICMP|          |             | ACCEPT |
+| 192.168.100.0/24  | 192.168.200.0/24       |  ICMP|          |             | ACCEPT |
+| 192.168.200.0/24  | 192.168.100.0/24       |  ICMP|          |             | ACCEPT |
+| 192.168.100.0/24  | 172.17.0.2             |  UDP | *        | 80/8080/443| ACCEPT |
+|                        |      |          |          |        |
 
 ---
 
