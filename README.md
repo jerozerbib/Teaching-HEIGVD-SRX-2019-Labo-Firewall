@@ -125,7 +125,7 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 
 | Adresse IP source | Adresse IP destination | Type | Port src | Port dst | Action |
 | :---:             | :---:                  | :---:| :------: | :------: | :----: |
-|                   |                        |      |          |          |        |
+| *                 |           *            |   *  |    *     |    *     | Drop   |
 |                   |                        |      |          |          |        |
 |                   |                        |      |          |          |        |
 |                   |                        |      |          |          |        |
@@ -248,9 +248,6 @@ Dans un terminal de votre serveur, taper les commandes suivantes :
 ```bash
 ip route del default 
 ip route add default via 192.168.200.2
-
-service nginx start
-service ssh start
 ```
 
 La communication devrait maintenant être possible entre les deux machines. Faites un nouveau test de ping, cette fois-ci depuis le serveur vers le client :
@@ -301,6 +298,7 @@ Ensuite, il faut taper les commandes suivantes :
 
 ```bash
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+service nginx start
 service ssh start
 ```
 
