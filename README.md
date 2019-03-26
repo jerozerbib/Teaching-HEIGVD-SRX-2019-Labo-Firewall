@@ -506,10 +506,10 @@ Commandes iptables :
 ```bash
 LIVRABLE : Commandes iptables
 
-iptables -A FORWARD -p udp --dport 53 -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 53 -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p udp --sport 53 -i eth0 -o eth1 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -j ACCEPT
+
+iptables -A FORWARD -p tcp --dport 80 -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 8080 -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 443 -i eth1 -o eth0 -j ACCEPT
 
 ```
 
@@ -523,6 +523,10 @@ Commandes iptables :
 
 ```bash
 LIVRABLE : Commandes iptables
+
+iptables -A FORWARD -p tcp --dport 80 -i eth1 -d 192.168.200.3 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 80 -i eth0 -d 192.168.200.3 -j ACCEPT
+
 ```
 ---
 
@@ -551,6 +555,10 @@ Commandes iptables :
 
 ```bash
 LIVRABLE : Commandes iptables
+
+iptables -A FORWARD -p tcp --dport 80 -s 192.168.100.3 -d 192.168.200.3 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 80 -s 192.168.100.3 -o eth1  -j ACCEPT
+
 ```
 
 ---
