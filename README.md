@@ -128,8 +128,8 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 | *                        | *                      |  any | *        | *            | DROP   |
 | 192.168.100.0/24         | WAN (eth0)             |  TCP | *        | 53           | ACCEPT |
 | 192.168.100.0/24         | WAN (eth0)             |  UDP | *        | 53           | ACCEPT |
-| WAN (eth0)               | 192.168.100.0/24       |  TCP | *        | 53           | ACCEPT |
-| WAN (eth0)               | 192.168.100.0/24       |  UDP | *        | 53           | ACCEPT |
+| WAN (eth0)               | 192.168.100.0/24       |  TCP | 53       | *            | ACCEPT |
+| WAN (eth0)               | 192.168.100.0/24       |  UDP | 53       | *            | ACCEPT |
 | 192.168.100.0/24         | WAN (eth0)             |  ICMP|          |              | ACCEPT |
 | 192.168.100.0/24         | 192.168.200.0/24       |  ICMP|          |              | ACCEPT |
 | 192.168.200.0/24         | 192.168.100.0/24       |  ICMP|          |              | ACCEPT |
