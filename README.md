@@ -455,7 +455,10 @@ Commandes iptables :
 ```bash
 LIVRABLE : Commandes iptables
 
-`iptables -A FORWARD -p udp -s 192.168.100.0/24 -i eth0`
+`iptables -A FORWARD -p udp --dport 53 -i eth1 -o eth0 --state NEW,ESTABLISHED -j ACCEPT`
+`iptables -A FORWARD -p tcp --dport 53 -i eth1 -o eth0 --state NEW,ESTABLISHED -j ACCEPT`
+`iptables -A FORWARD -p udp --sport 53 -i eth0 -o eth1 --state ESTABLISHED -j ACCEPT`
+`iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 --state ESTABLISHED -j ACCEPT`
 
 ```
 
