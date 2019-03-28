@@ -123,21 +123,26 @@ _Lors de la définition d'une zone, spécifier l'adresse du sous-réseau IP avec
 
 **LIVRABLE : Remplir le tableau**
 
-| Adresse IP source        | Adresse IP destination | Type | Port src | Port dst     | Action |
-| :---:                    | :---:                  | :---:| :------: | :------:     | :----: |
-| *                        | *                      |  any | *        | *            | DROP   |
-| 192.168.100.0/24         | WAN (eth0)             |  TCP | *        | 53           | ACCEPT |
-| 192.168.100.0/24         | WAN (eth0)             |  UDP | *        | 53           | ACCEPT |
-| WAN (eth0)               | 192.168.100.0/24       |  TCP | 53       | *            | ACCEPT |
-| WAN (eth0)               | 192.168.100.0/24       |  UDP | 53       | *            | ACCEPT |
-| 192.168.100.0/24         | WAN (eth0)             |  ICMP|          |              | ACCEPT |
-| 192.168.100.0/24         | 192.168.200.0/24       |  ICMP|          |              | ACCEPT |
-| 192.168.200.0/24         | 192.168.100.0/24       |  ICMP|          |              | ACCEPT |
-| 192.168.100.0/24         | WAN (eth0)             |  TCP | *        | 80/8080/443  | ACCEPT |
-| 192.168.100.0/24         | 192.168.200.3          |  TCP | *        | 80           | ACCEPT |
-| WAN (eth0)               | 192.168.200.3          |  TCP | *        | 80           | ACCEPT |
-| 192.168.100.3            | 192.168.200.3          |  TCP | *        | 22           | ACCEPT |
-| 192.168.100.3            | 192.168.100.2 (eth1)   |  TCP | *        | 22           | ACCEPT |
+| Adresse IP source        | Adresse IP destination | Type | Port src    | Port dst     | Action |
+| :---:                    | :---:                  | :---:| :------:    | :------:     | :----: |
+| *                        | *                      |  any | *           | *            | DROP   |
+| 192.168.100.0/24         | WAN (eth0)             |  TCP | *           | 53           | ACCEPT |
+| 192.168.100.0/24         | WAN (eth0)             |  UDP | *           | 53           | ACCEPT |
+| WAN (eth0)               | 192.168.100.0/24       |  TCP | 53          | *            | ACCEPT |
+| WAN (eth0)               | 192.168.100.0/24       |  UDP | 53          | *            | ACCEPT |
+| 192.168.100.0/24         | WAN (eth0)             |  ICMP|             |              | ACCEPT |
+| 192.168.100.0/24         | 192.168.200.0/24       |  ICMP|             |              | ACCEPT |
+| 192.168.200.0/24         | 192.168.100.0/24       |  ICMP|             |              | ACCEPT |
+| 192.168.100.0/24         | WAN (eth0)             |  TCP | *           | 80/8080/443  | ACCEPT |
+| WAN (eth0)               | 192.168.100.0/24       |  TCP | 80/8080/443 | *            | ACCEPT |
+| 192.168.100.0/24         | 192.168.200.3          |  TCP | *           | 80           | ACCEPT |
+| 192.168.200.3            | 192.168.100.0/24       |  TCP | 80          | *            | ACCEPT |
+| WAN (eth0)               | 192.168.200.3          |  TCP | *           | 80           | ACCEPT |
+| 192.168.200.3            | WAN (eth0)             |  TCP | 80          | 80           | ACCEPT |
+| 192.168.100.3            | 192.168.200.3          |  TCP | *           | 22           | ACCEPT |
+| 192.168.200.3            | 192.168.100.3          |  TCP | 22          | *            | ACCEPT |
+| 192.168.100.3            | 192.168.100.2 (eth1)   |  TCP | *           | 22           | ACCEPT |
+| 192.168.100.2 eth1)      | 192.168.100.3          |  TCP | 22          | *            | ACCEPT |
 
 ---
 
@@ -514,12 +519,12 @@ Commandes iptables :
 LIVRABLE : Commandes iptables
 
 
-iptables -A FORWARD -p tcp --dport 80 -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 80 -i eth0 -o eth1 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 8080 -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 8080 -i eth0 -o eth1 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 443 -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 443 -i eth0 -o eth1 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 80 -m state --state NEW,ESTALISHED -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -m state --state ESTALISHED -i eth0 -o eth1 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 8080 -m state --state NEW,ESTALISHED -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 8080 -m state --state ESTALISHED -i eth0 -o eth1 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 443 -m state --state NEW,ESTALISHED -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 443 -m state --state NEW,ESTALISHED -i eth0 -o eth1 -j ACCEPT
 
 ```
 
@@ -534,10 +539,10 @@ Commandes iptables :
 ```bash
 LIVRABLE : Commandes iptables
 
-iptables -A FORWARD -p tcp --dport 80 -i eth1 -d 192.168.200.3 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth1 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 80 -i eth0 -d 192.168.200.3 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 80 -m state --state NEW,ESTALISHED -i eth1 -d 192.168.200.3 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -m state --state ESTALISHED -s 192.168.200.3 -o eth1 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 80 -m state --state NEW,ESTALISHED -i eth0 -d 192.168.200.3 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -m state --state ESTALISHED -s 192.168.200.3 -o eth0 -j ACCEPT
 
 ```
 ---
