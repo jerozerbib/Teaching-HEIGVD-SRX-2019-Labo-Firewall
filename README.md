@@ -233,7 +233,7 @@ ping 192.168.200.3
 ---
 
 **LIVRABLE : capture d'écran de votre tentative de ping.**  
-<img src="1_pingLanDmz.PNG" alt="alt text"  width="200"/>
+<img src="1_pingLanDmz.PNG" alt="alt text"  />
 ---
 
 En effet, la communication entre les clients dans le LAN et les serveurs dans la DMZ doit passer à travers le Firewall. Il faut donc définir le Firewall comme passerelle par défaut pour le client dans le LAN et le serveur dans la DMZ.
@@ -269,7 +269,7 @@ ping 192.168.100.3
 
 **LIVRABLE : capture d'écran de votre nouvelle tentative de ping.**
 
-<img src="2_pingDmzLan.PNG" alt="alt text" width="200"/>
+<img src="2_pingDmzLan.PNG" alt="alt text" />
 ---
 
 La communication est maintenant possible entre les deux machines. Pourtant, si vous essayez de communiquer depuis le client ou le serveur vers l'Internet, ça ne devrait pas encore fonctionner sans une manipulation supplémentaire au niveau du firewall. Vous pouvez le vérifier avec un ping depuis le client ou le serveur vers une adresse Internet. 
@@ -284,7 +284,7 @@ ping 8.8.8.8
 
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
 
-<img src="3_pingDmzExt.PNG" alt="alt text" width="200"/>
+<img src="3_pingDmzExt.PNG" alt="alt text" />
 
 ---
 
@@ -406,7 +406,7 @@ Faire une capture du ping.
 ---
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
 
-<img src="4_pingLanWan.PNG" alt="alt text" width="200"/>
+<img src="4_pingLanWan.PNG" alt="alt text" />
 ---
 
 <ol type="a" start="3">
@@ -551,10 +551,10 @@ iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth0 -j ACCEPT
 
 **LIVRABLE : capture d'écran.**
 Avant application de la règle 
-<img src="6_wgetLanDmzKo.PNG" alt="alt text" width="200"/>
+<img src="6_wgetLanDmzKo.PNG" alt="alt text" />
 
 Après application 
-<img src="6_wgetLanDmzOk.PNG" alt="alt text" width="200"/>
+<img src="6_wgetLanDmzOk.PNG" alt="alt text" />
 
 ---
 
@@ -591,7 +591,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 
 **LIVRABLE : capture d'écran de votre connexion ssh.**
-<img src="7_SshLanDmz.PNG" alt="alt text" width="200"/>
+<img src="7_SshLanDmz.PNG" alt="alt text" />
 ---
 
 <ol type="a" start="9">
