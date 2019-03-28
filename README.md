@@ -6,7 +6,7 @@ Clonez le repo sur votre machine. Vous retrouverez notamment dans ce repo le fic
 
 Vous pouvez répondre aux questions en modifiant directement votre clone du README.md ou avec un fichier pdf que vous pourrez uploader sur votre fork.
 
-**Le rendu consiste simplement à compléter toutes les parties marquées avec la mention "LIVRABLE". Le rendu doit se faire par une "pull request". Envoyer également le hash du dernier commit et votre username GitHub par email au professeur et à l'assistant**
+**Le rendu consiste simplement à compléter toutes les parties marquées avec la mention "LIVRABLE". Le rendu doit se faire par une "pull request". Envoyer également le hash du dernier commit et votre username GitHub par email au professeur et à l'assistant** 
 
 ## Table de matières
 
@@ -233,7 +233,7 @@ ping 192.168.200.3
 ---
 
 **LIVRABLE : capture d'écran de votre tentative de ping.**  
-
+<img src="1_pingLanDmz.PNG" alt="alt text"  width="200"/>
 ---
 
 En effet, la communication entre les clients dans le LAN et les serveurs dans la DMZ doit passer à travers le Firewall. Il faut donc définir le Firewall comme passerelle par défaut pour le client dans le LAN et le serveur dans la DMZ.
@@ -269,6 +269,7 @@ ping 192.168.100.3
 
 **LIVRABLE : capture d'écran de votre nouvelle tentative de ping.**
 
+<img src="2_pingDmzLan.PNG" alt="alt text" width="200"/>
 ---
 
 La communication est maintenant possible entre les deux machines. Pourtant, si vous essayez de communiquer depuis le client ou le serveur vers l'Internet, ça ne devrait pas encore fonctionner sans une manipulation supplémentaire au niveau du firewall. Vous pouvez le vérifier avec un ping depuis le client ou le serveur vers une adresse Internet. 
@@ -282,6 +283,8 @@ ping 8.8.8.8
 ---
 
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
+
+<img src="3_pingDmzExt.PNG" alt="alt text" width="200"/>
 
 ---
 
@@ -403,6 +406,7 @@ Faire une capture du ping.
 ---
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
 
+<img src="4_pingLanWan.PNG" alt="alt text" width="200"/>
 ---
 
 <ol type="a" start="3">
@@ -411,20 +415,20 @@ Faire une capture du ping.
 </ol>
 
 
-| De Client\_in\_LAN à | OK/KO | Commentaires et explications |
-| :---                 | :---: | :---                         |
-| Interface DMZ du FW  |       |                              |
-| Interface LAN du FW  |       |                              |
-| Client LAN           |       |                              |
-| Serveur WAN          |       |                              |
+| De Client\_in\_LAN à | OK/KO | Commentaires et explications                                                             |
+| :---                 | :---: | :---                                                                                     |
+| Interface DMZ du FW  |   KO  | Comme nous avons mis en FORWARD, seul les pings traversant le firewall seront acceptés   |
+| Interface LAN du FW  |   KO  | Pareil			                                                                              |
+| Client LAN           |   OK  | Ne passe pas par le FireWall  	                                                          |
+| Serveur WAN          |   OK  | Ok, but de nos règles. Accepte le forward                                                |
 
 
-| De Server\_in\_DMZ à | OK/KO | Commentaires et explications |
-| :---                 | :---: | :---                         |
-| Interface DMZ du FW  |       |                              |
-| Interface LAN du FW  |       |                              |
-| Serveur DMZ          |       |                              |
-| Serveur WAN          |       |                              |
+| De Server\_in\_DMZ à | OK/KO | Commentaires et explications                                                             |
+| :---                 | :---: | :---                                                                                     |
+| Interface DMZ du FW  |  KO   | Comme nous avons mis en FORWARD, seul les pings traversant le firewall seront acceptés   |
+| Interface LAN du FW  |  KO   | Pareil                                                                                   |
+| Serveur DMZ          |  OK   | Local, ne passe pas par le FireWall n'est  donc pas contraint de respecter les règles    |
+| Serveur WAN          |  KO   | Règle refusée par le FireWall selon notre configuration                                  |
 
 
 ## Règles pour le protocole DNS
@@ -443,6 +447,9 @@ ping www.google.com
 ---
 
 **LIVRABLE : capture d'écran de votre ping.**
+
+**Problème, passe chez nous!!**
+
 
 ---
 
@@ -508,8 +515,11 @@ LIVRABLE : Commandes iptables
 
 
 iptables -A FORWARD -p tcp --dport 80 -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -i eth0 -o eth1 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 8080 -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 8080 -i eth0 -o eth1 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 443 -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 443 -i eth0 -o eth1 -j ACCEPT
 
 ```
 
@@ -525,7 +535,9 @@ Commandes iptables :
 LIVRABLE : Commandes iptables
 
 iptables -A FORWARD -p tcp --dport 80 -i eth1 -d 192.168.200.3 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth1 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 80 -i eth0 -d 192.168.200.3 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth0 -j ACCEPT
 
 ```
 ---
@@ -538,6 +550,11 @@ iptables -A FORWARD -p tcp --dport 80 -i eth0 -d 192.168.200.3 -j ACCEPT
 ---
 
 **LIVRABLE : capture d'écran.**
+Avant application de la règle 
+<img src="6_wgetLanDmzKo.PNG" alt="alt text" width="200"/>
+
+Après application 
+<img src="6_wgetLanDmzOk.PNG" alt="alt text" width="200"/>
 
 ---
 
@@ -556,8 +573,10 @@ Commandes iptables :
 ```bash
 LIVRABLE : Commandes iptables
 
-iptables -A FORWARD -p tcp --dport 80 -s 192.168.100.3 -d 192.168.200.3 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 80 -s 192.168.100.3 -o eth1  -j ACCEPT
+iptables -A FORWARD -p tcp --dport 22 -s 192.168.100.3 -d 192.168.200.3 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 22 -s 192.168.200.3 -d 192.168.100.3 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -s 192.168.100.3 -d 192.168.100.2 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -s 192.168.100.2 -d 192.168.100.3 -j ACCEPT
 
 ```
 
@@ -572,7 +591,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 
 **LIVRABLE : capture d'écran de votre connexion ssh.**
-
+<img src="7_SshLanDmz.PNG" alt="alt text" width="200"/>
 ---
 
 <ol type="a" start="9">
@@ -584,7 +603,8 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 **Réponse**
 
 **LIVRABLE : Votre réponse ici...**
-
+* Permet d'accéder à distance au serveur et d'éviter les déplacements.
+* SSH assure également une authentification forte et des communications chiffrées.
 ---
 
 <ol type="a" start="10">
@@ -597,6 +617,8 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 **Réponse**
 
 **LIVRABLE : Votre réponse ici...**
+* A ne pas perdre la connexion SSH... En effet, selon l'ordre d'applicatiion des règles ou des paramètres inccorectes, il n'est pas exclus  que l'administrateur perde la connexion. Si tel est le cas, il devra probablement se déplacer lui même sur place afin de corriger cela.
+
 
 ---
 
@@ -611,6 +633,40 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 
 ---
 
-**LIVRABLE : capture d'écran avec toutes vos règles.**
+**LIVRABLE : capture d'écran avec toutes vos règles.**  
+iptables -F  
+iptables -P INPUT DROP  
+iptables -P FORWARD DROP  
+iptables -P OUTPUT DROP  
+
+iptables -A FORWARD -p icmp --icmp-type echo-request -i eth1 -o eth2 -j ACCEPT  
+iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth2 -o eth1 -j ACCEPT  
+iptables -A FORWARD -p icmp --icmp-type echo-request -i eth2 -o eth1 -j ACCEPT  
+iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth1 -o eth2 -j ACCEPT  
+iptables -A FORWARD -p icmp --icmp-type echo-request -i eth1 -o eth0 -j ACCEPT  
+iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth0 -o eth1 -j ACCEPT  
+
+iptables -A FORWARD -p udp --dport 53 -i eth1 -o eth0 -j ACCEPT  
+iptables -A FORWARD -p tcp --dport 53 -i eth1 -o eth0 -j ACCEPT  
+iptables -A FORWARD -p udp --sport 53 -i eth0 -o eth1 -j ACCEPT  
+iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -j ACCEPT  
+
+iptables -A FORWARD -p tcp --dport 80 -i eth1 -o eth0 -j ACCEPT  
+iptables -A FORWARD -p tcp --sport 80 -i eth0 -o eth1 -j ACCEPT  
+iptables -A FORWARD -p tcp --dport 8080 -i eth1 -o eth0 -j ACCEPT  
+iptables -A FORWARD -p tcp --sport 8080 -i eth0 -o eth1 -j ACCEPT  
+iptables -A FORWARD -p tcp --dport 443 -i eth1 -o eth0 -j ACCEPT  
+iptables -A FORWARD -p tcp --sport 443 -i eth0 -o eth1 -j ACCEPT  
+
+iptables -A FORWARD -p tcp --dport 80 -i eth1 -d 192.168.200.3 -j ACCEPT  
+iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth1 -j ACCEPT  
+
+iptables -A FORWARD -p tcp --dport 80 -i eth0 -d 192.168.200.3 -j ACCEPT  
+iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth0 -j ACCEPT  
+
+iptables -A FORWARD -p tcp --dport 22 -s 192.168.100.3 -d 192.168.200.3 -j ACCEPT  
+iptables -A FORWARD -p tcp --sport 22 -s 192.168.200.3 -d 192.168.100.3 -j ACCEPT  
+iptables -A INPUT -p tcp --dport 22 -s 192.168.100.3 -d 192.168.100.2 -j ACCEPT  
+iptables -A OUTPUT -p tcp --sport 22 -s 192.168.100.2 -d 192.168.100.3 -j ACCEPT  
 
 ---
