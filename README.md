@@ -553,7 +553,8 @@ iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth0 -j ACCEPT
 Avant application de la règle 
 <img src="6_wgetLanDmzKo.PNG" alt="alt text" />
 
-Après application 
+
+Après application    
 <img src="6_wgetLanDmzOk.PNG" alt="alt text" />
 
 ---
