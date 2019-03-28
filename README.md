@@ -635,39 +635,6 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 ---
 
 **LIVRABLE : capture d'écran avec toutes vos règles.**  
-iptables -F  
-iptables -P INPUT DROP  
-iptables -P FORWARD DROP  
-iptables -P OUTPUT DROP  
 
-iptables -A FORWARD -p icmp --icmp-type echo-request -i eth1 -o eth2 -j ACCEPT  
-iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth2 -o eth1 -j ACCEPT  
-iptables -A FORWARD -p icmp --icmp-type echo-request -i eth2 -o eth1 -j ACCEPT  
-iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth1 -o eth2 -j ACCEPT  
-iptables -A FORWARD -p icmp --icmp-type echo-request -i eth1 -o eth0 -j ACCEPT  
-iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth0 -o eth1 -j ACCEPT  
-
-iptables -A FORWARD -p udp --dport 53 -i eth1 -o eth0 -j ACCEPT  
-iptables -A FORWARD -p tcp --dport 53 -i eth1 -o eth0 -j ACCEPT  
-iptables -A FORWARD -p udp --sport 53 -i eth0 -o eth1 -j ACCEPT  
-iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -j ACCEPT  
-
-iptables -A FORWARD -p tcp --dport 80 -i eth1 -o eth0 -j ACCEPT  
-iptables -A FORWARD -p tcp --sport 80 -i eth0 -o eth1 -j ACCEPT  
-iptables -A FORWARD -p tcp --dport 8080 -i eth1 -o eth0 -j ACCEPT  
-iptables -A FORWARD -p tcp --sport 8080 -i eth0 -o eth1 -j ACCEPT  
-iptables -A FORWARD -p tcp --dport 443 -i eth1 -o eth0 -j ACCEPT  
-iptables -A FORWARD -p tcp --sport 443 -i eth0 -o eth1 -j ACCEPT  
-
-iptables -A FORWARD -p tcp --dport 80 -i eth1 -d 192.168.200.3 -j ACCEPT  
-iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth1 -j ACCEPT  
-
-iptables -A FORWARD -p tcp --dport 80 -i eth0 -d 192.168.200.3 -j ACCEPT  
-iptables -A FORWARD -p tcp --sport 80 -s 192.168.200.3 -o eth0 -j ACCEPT  
-
-iptables -A FORWARD -p tcp --dport 22 -s 192.168.100.3 -d 192.168.200.3 -j ACCEPT  
-iptables -A FORWARD -p tcp --sport 22 -s 192.168.200.3 -d 192.168.100.3 -j ACCEPT  
-iptables -A INPUT -p tcp --dport 22 -s 192.168.100.3 -d 192.168.100.2 -j ACCEPT  
-iptables -A OUTPUT -p tcp --sport 22 -s 192.168.100.2 -d 192.168.100.3 -j ACCEPT  
-
+<img src="8_AllRules.jpg"/> 
 ---
