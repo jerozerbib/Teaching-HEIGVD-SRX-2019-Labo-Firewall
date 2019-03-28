@@ -386,12 +386,12 @@ Commandes iptables :
 ```bash
 LIVRABLE : Commandes iptables
 
-iptables -A FORWARD -p icmp --icmp-type echo-request -i eth1 -o eth2 -j ACCEPT
-iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth2 -o eth1 -j ACCEPT
-iptables -A FORWARD -p icmp --icmp-type echo-request -i eth2 -o eth1 -j ACCEPT
-iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth1 -o eth2 -j ACCEPT
-iptables -A FORWARD -p icmp --icmp-type echo-request -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p icmp --icmp-type echo-reply -i eth0 -o eth1 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-request -m state --state NEW,ESTABLISHED -i eth1 -o eth2 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-reply  -m state --state ESTABLISHED -i eth2 -o eth1 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-request  -m state --state NEW,ESTABLISHED -i eth2 -o eth1 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-reply -m state --state ESTABLISHED -i eth1 -o eth2 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-request -m state --state NEW,ESTABLISHED -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-reply -m state --state ESTABLISHED -i eth0 -o eth1 -j ACCEPT
 
 ```
 ---
@@ -467,11 +467,10 @@ Commandes iptables :
 ```bash
 LIVRABLE : Commandes iptables
 
-iptables -A FORWARD -p udp --dport 53 -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 53 -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -p udp --sport 53 -i eth0 -o eth1 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -j ACCEPT
-
+iptables -A FORWARD -p udp --dport 53 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp --dport 53 -i eth1 -o eth0 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p udp --sport 53 -i eth0 -o eth1 -m state --state ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -m state --state ESTABLISHED -j ACCEPT
 
 ```
 
