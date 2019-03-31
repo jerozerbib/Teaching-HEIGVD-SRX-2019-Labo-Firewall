@@ -632,7 +632,8 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 **Réponse**
 
 **LIVRABLE : Votre réponse ici...**
-* A ne pas perdre la connexion SSH... En effet, selon l'ordre d'applicatiion des règles ou des paramètres inccorectes, il n'est pas exclus  que l'administrateur perde la connexion. Si tel est le cas, il devra probablement se déplacer lui même sur place afin de corriger cela.
+* A ne pas perdre la connexion SSH... En effet, selon l'ordre d'application des règles ou des paramètres inccorectes, il n'est pas exclus  que l'administrateur perde la connexion. 
+Si tel est le cas, il devra probablement se déplacer lui même sur place afin de corriger cela.
 
 
 ---
