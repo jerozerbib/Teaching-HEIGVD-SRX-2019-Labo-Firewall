@@ -564,7 +564,7 @@ iptables -A FORWARD -p tcp --sport 80 -m state --state ESTALISHED -s 192.168.200
 ---
 
 **LIVRABLE : capture d'écran.**  
-Avant application de la règle 
+Avant application de la règle   
 <img src="figures/6_wgetLanDmzKo.PNG" alt="alt text" />
 
 
