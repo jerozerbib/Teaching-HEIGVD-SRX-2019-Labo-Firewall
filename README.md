@@ -568,7 +568,7 @@ Avant application de la règle
 <img src="figures/6_wgetLanDmzKo.PNG" alt="alt text" />
 
 
-Après application    
+Après application     
 <img src="figures/6_wgetLanDmzOk.PNG" alt="alt text" />
 
 ---
