@@ -55,7 +55,7 @@ Ce travail devra être rendu le dimanche après la fin de la 2ème séance de la
 
 Durant ce laboratoire, nous allons utiliser une seule topologie réseau :
 
-![Topologie du réseau virtualisé](figures/Topologie.png)
+![Topologie du réseau virtualisé](figures//Topologie.png)
 
 Notre réseau local (LAN) sera connecté à Internet (WAN) au travers d’un pare-feu. Nous placerons un serveur Web en zone démilitarisée (DMZ). 
 
@@ -84,7 +84,7 @@ Pour ce laboratoire, nous vous imposons le plan d’adressage suivant :
 
 Les adresses IP sont définies dans le schéma ci-dessous :
 
-![Plan d'adressage](figures/Plan.png)
+![Plan d'adressage](figures//Plan.png)
 
 ## Cahier des charges du réseau
 
@@ -238,7 +238,7 @@ ping 192.168.200.3
 ---
 
 **LIVRABLE : capture d'écran de votre tentative de ping.**  
-<img src="1_pingLanDmz.PNG" alt="alt text"  />
+<img src="figures/1_pingLanDmz.PNG" alt="alt text"  />
 ---
 
 En effet, la communication entre les clients dans le LAN et les serveurs dans la DMZ doit passer à travers le Firewall. Il faut donc définir le Firewall comme passerelle par défaut pour le client dans le LAN et le serveur dans la DMZ.
@@ -274,7 +274,7 @@ ping 192.168.100.3
 
 **LIVRABLE : capture d'écran de votre nouvelle tentative de ping.**
 
-<img src="2_pingDmzLan.PNG" alt="alt text" />
+<img src="figures/2_pingDmzLan.PNG" alt="alt text" />
 ---
 
 La communication est maintenant possible entre les deux machines. Pourtant, si vous essayez de communiquer depuis le client ou le serveur vers l'Internet, ça ne devrait pas encore fonctionner sans une manipulation supplémentaire au niveau du firewall. Vous pouvez le vérifier avec un ping depuis le client ou le serveur vers une adresse Internet. 
@@ -289,7 +289,7 @@ ping 8.8.8.8
 
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
 
-<img src="3_pingDmzExt.PNG" alt="alt text" />
+<img src="figures/3_pingDmzExt.PNG" alt="alt text" />
 
 ---
 
@@ -411,7 +411,7 @@ Faire une capture du ping.
 ---
 **LIVRABLE : capture d'écran de votre ping vers l'Internet.**
 
-<img src="4_pingLanWan.PNG" alt="alt text" />
+<img src="figures/4_pingLanWan.PNG" alt="alt text" />
 ---
 
 <ol type="a" start="3">
@@ -456,10 +456,10 @@ ping www.google.com
 Comme discuté avec M.Rubinstein, nous avons une résolution DNS qui se fait malgrès que tout soit fermé au niveau FireWall.  
 Voici un exemple.   
 FireWall : tout fermé  
-<img src="5_FW_Vide.PNG" alt="alt text" />  
+<img src="figures/5_FW_Vide.PNG" alt="alt text" />  
 
 Nous faisons à ce moment là un ping vers une adresse "jamais utilisée" dans notre infra afin d'éviter tout problème de cache p.ex.    
-<img src="5_pingExt_NoDns.PNG" alt="alt text" />    
+<img src="figures/5_pingExt_NoDns.PNG" alt="alt text" />    
 Nous pouvons voir que la résolution DNS se fait malgrès nos règles ne laissant rien passer. Le ping ne passe quant à lui pas!    
 
 
@@ -492,7 +492,7 @@ iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -m state --state ESTABLISH
 
 **LIVRABLE : capture d'écran de votre ping.**
 Finalement nous appliquons nos règles icmp et dns. Le ping s'effectue cette fois correctement.  
-<img src="5_pingExt_Dns.PNG" alt="alt text" />  
+<img src="figures/5_pingExt_Dns.PNG" alt="alt text" />  
 
 ---
 
@@ -565,11 +565,11 @@ iptables -A FORWARD -p tcp --sport 80 -m state --state ESTALISHED -s 192.168.200
 
 **LIVRABLE : capture d'écran.**  
 Avant application de la règle 
-<img src="6_wgetLanDmzKo.PNG" alt="alt text" />
+<img src="figures/6_wgetLanDmzKo.PNG" alt="alt text" />
 
 
 Après application    
-<img src="6_wgetLanDmzOk.PNG" alt="alt text" />
+<img src="figures/6_wgetLanDmzOk.PNG" alt="alt text" />
 
 ---
 
@@ -606,7 +606,7 @@ ssh root@192.168.200.3 (password : celui que vous avez configuré)
 ---
 
 **LIVRABLE : capture d'écran de votre connexion ssh.**
-<img src="7_SshLanDmz.PNG" alt="alt text" />
+<img src="figures/7_SshLanDmz.PNG" alt="alt text" />
 ---
 
 <ol type="a" start="9">
@@ -650,5 +650,5 @@ A présent, vous devriez avoir le matériel nécessaire afin de reproduire la ta
 
 **LIVRABLE : capture d'écran avec toutes vos règles.**  
 
-<img src="8_AllRules.jpg"/> 
+<img src="figures/8_AllRules.jpg"/> 
 ---
