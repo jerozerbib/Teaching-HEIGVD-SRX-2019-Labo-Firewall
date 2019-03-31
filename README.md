@@ -453,7 +453,14 @@ ping www.google.com
 
 **LIVRABLE : capture d'écran de votre ping.**
 
-**Problème, passe chez nous!!**
+Comme discuté avec M.Rubinstein, nous avons une résolution DNS qui se fait malgrès que tout soit fermé au niveau FireWall.  
+Voici un exemple.   
+FireWall : tout fermé  
+<img src="5_FW_Vide.PNG" alt="alt text" />  
+
+Nous faisons à ce moment là un ping vers une adresse "jamais utilisée" dans notre infra afin d'éviter tout problème de cache p.ex.    
+<img src="5_pingExt_NoDns.PNG" alt="alt text" />    
+Nous pouvons voir que la résolution DNS se fait malgrès nos règles ne laissant rien passer. Le ping ne passe quant à lui pas!    
 
 
 ---
@@ -484,6 +491,8 @@ iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -m state --state ESTABLISH
 ---
 
 **LIVRABLE : capture d'écran de votre ping.**
+Finalement nous appliquons nos règles icmp et dns. Le ping s'effectue cette fois correctement.  
+<img src="5_pingExt_Dns.PNG" alt="alt text" />  
 
 ---
 
@@ -495,7 +504,8 @@ iptables -A FORWARD -p tcp --sport 53 -i eth0 -o eth1 -m state --state ESTABLISH
 ---
 **Réponse**
 
-**LIVRABLE : Votre réponse ici...**
+**LIVRABLE : Votre réponse ici...**  
+Nous ne savons pas quel message est affiché lors du premier ping, suite à notre problème de DNS.
 
 ---
 
@@ -553,7 +563,7 @@ iptables -A FORWARD -p tcp --sport 80 -m state --state ESTALISHED -s 192.168.200
 
 ---
 
-**LIVRABLE : capture d'écran.**
+**LIVRABLE : capture d'écran.**  
 Avant application de la règle 
 <img src="6_wgetLanDmzKo.PNG" alt="alt text" />
 
